@@ -1,0 +1,30 @@
+---
+# Версии микросервисов (теги репозиториев)
+backend_version: v2.1
+frontend_version: v2.1
+devops_version: main
+
+# Репозитории: DevOps клонируется первым, backend и frontend - в его подпапки,
+# чтобы docker-compose.yml (build: ./backend, build: ./frontend) нашёл исходники
+repos:
+  - name: DevOps
+    repo: "https://github.com/{{ github_user }}/DevOps.git"
+    dest: "{{ project_dir }}"
+    version: "{{ devops_version }}"
+  - name: backend
+    repo: "https://github.com/{{ github_user }}/backend.git"
+    dest: "{{ project_dir }}/backend"
+    version: "{{ backend_version }}"
+  - name: frontend
+    repo: "https://github.com/{{ github_user }}/frontend.git"
+    dest: "{{ project_dir }}/frontend"
+    version: "{{ frontend_version }}"
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+docker_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"

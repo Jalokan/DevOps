@@ -1,0 +1,5 @@
+---
+- name: Остановить контейнеры (docker compose stop)
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_dir }}"
+    state: stopped

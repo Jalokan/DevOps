@@ -1,0 +1,15 @@
+---
+- name: Собрать образы и запустить контейнеры (docker compose up -d --build)
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_dir }}"
+    state: present
+    build: always
+
+- name: Проверить, что frontend отвечает на порту 8080
+  ansible.builtin.uri:
+    url: "{{ app_url }}"
+    status_code: 200
+  register: app_check
+  retries: 10
+  delay: 3
+  until: app_check.status == 200

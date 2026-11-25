@@ -1,0 +1,4 @@
+Развёрнуто с помощью Ansible
+Хост: {{ inventory_hostname }} ({{ ansible_host | default(inventory_hostname) }})
+Дата: {{ ansible_date_time.iso8601 }}
+Версии: backend {{ backend_version }}, frontend {{ frontend_version }}, DevOps {{ devops_version }}

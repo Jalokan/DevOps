@@ -1,0 +1,18 @@
+---
+# Теги: deploy - полная раскатка, start - запуск контейнеров,
+# stop - остановка контейнеров (запускается только при --tags stop)
+- name: Установка Docker и Docker Compose
+  ansible.builtin.import_tasks: install_docker.yml
+  tags: [deploy, docker]
+
+- name: Клонирование репозиториев
+  ansible.builtin.import_tasks: clone_repos.yml
+  tags: [deploy, clone]
+
+- name: Запуск микросервисов через docker compose
+  ansible.builtin.import_tasks: start.yml
+  tags: [deploy, start]
+
+- name: Остановка микросервисов через docker compose
+  ansible.builtin.import_tasks: stop.yml
+  tags: [stop, never]

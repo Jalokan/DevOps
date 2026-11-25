@@ -1,0 +1,5 @@
+---
+# Общие переменные для всех хостов
+github_user: Jalokan
+project_dir: /opt/devops
+app_url: http://localhost:8080

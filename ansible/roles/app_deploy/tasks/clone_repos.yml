@@ -1,0 +1,23 @@
+---
+- name: Создать каталог проекта
+  ansible.builtin.file:
+    path: "{{ project_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Клонировать репозитории DevOps, backend и frontend
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: "{{ item.version }}"
+    recursive: false
+    force: true
+  loop: "{{ repos }}"
+  loop_control:
+    label: "{{ item.name }} ({{ item.version }})"
+
+- name: Записать информацию о развёртывании (шаблон)
+  ansible.builtin.template:
+    src: deploy_info.txt.j2
+    dest: "{{ project_dir }}/DEPLOY_INFO.txt"
+    mode: "0644"

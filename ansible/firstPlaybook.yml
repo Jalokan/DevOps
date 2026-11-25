@@ -1,0 +1,7 @@
+---
+# Главный плейбук: вызывает роль app_deploy на хостах группы nodes
+- name: Раскатка микросервисов frontend и backend через Docker Compose
+  hosts: nodes
+  become: true
+  roles:
+    - app_deploy
